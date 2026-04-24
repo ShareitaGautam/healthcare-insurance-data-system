@@ -1,0 +1,18 @@
+TITLE:
+Female Patients Over Age 40 with Knee Surgery in the Past Year
+
+DESCRIPTION:
+Identify female patients who are older than 40 years and have undergone knee surgery within the last one year.
+
+EXPLANATION:
+This requirement could not be implemented because the available datasets do not contain:
+- Procedure or surgery details (e.g., knee surgery)
+- Treatment/admission/surgery date
+
+Although patient gender and birth date are available, the absence of:
+1. Surgery/procedure information
+2. Date fields to determine time (past year)
+
+makes it impossible to accurately identify patients matching the given criteria.
+
+Therefore, this requirement cannot be fulfilled with the given data.

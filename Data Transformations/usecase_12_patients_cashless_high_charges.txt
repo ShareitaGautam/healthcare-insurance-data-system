@@ -1,0 +1,16 @@
+TITLE:
+Patients with Cashless Insurance and High Medical Charges
+
+DESCRIPTION:
+Identify patients who have availed cashless insurance and whose total medical charges are greater than or equal to Rs. 50,000.
+
+EXPLANATION:
+This requirement could not be implemented because the available datasets do not contain the required fields such as:
+- Cashless insurance indicator (e.g., cashless_flag)
+- Total hospital charges (e.g., total_charges or bill_amount)
+
+Without these fields, it is not possible to:
+1. Determine whether a patient used cashless insurance.
+2. Verify if the total medical charges meet the specified threshold.
+
+Therefore, this requirement cannot be fulfilled with the given data.

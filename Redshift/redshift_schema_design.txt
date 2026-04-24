@@ -1,0 +1,172 @@
+Healthcare Insurance Data Platform
+Redshift Schema Design Document
+
+---
+
+1. Overview
+
+---
+
+This document explains the structure of the Redshift database used in the project.
+
+The system processes healthcare insurance data using PySpark and stores the final results in Amazon Redshift for analysis and reporting.
+
+The data flow is:
+
+S3 (raw data) → PySpark (processing & cleaning) → S3 (output files) → Redshift (final tables)
+
+---
+
+2. Schema Design
+
+---
+
+Two schemas are created in Redshift:
+
+1. project_cleaned
+
+   * Stores cleaned and processed datasets
+   * These datasets are prepared using PySpark
+
+2. project_output
+
+   * Stores final results of all analytical use cases
+   * Used for reporting and querying
+
+---
+
+3. Cleaned Tables Description
+
+---
+
+The following tables are stored in the project_cleaned schema:
+
+1. claims
+
+   * Contains all insurance claim records
+   * Includes claim amount, claim status, disease, and related IDs
+
+2. patients
+
+   * Contains patient details such as name, gender, city, and disease
+
+3. subscriber
+
+   * Contains insurance subscriber details
+   * Includes personal information and policy details
+
+4. group_subgroup
+
+   * Maps subgroups to groups
+   * Helps in joining subscriber data with group data
+
+5. groups
+
+   * Contains insurance company/group details
+   * Includes type (Government or Private) and premium information
+
+6. hospital
+
+   * Contains hospital information such as name and location
+
+7. disease
+
+   * Maps diseases to subgroups
+
+---
+
+4. Output Tables Description
+
+---
+
+The following tables are stored in the project_output schema:
+
+Each table corresponds to a business use case.
+
+1. disease_max_claims
+
+   * Shows which disease has the maximum number of claims
+
+2. subscribers_age_lt_30_subgroup
+
+   * Lists subscribers below age 30 who belong to any subgroup
+
+3. group_max_subgroups
+
+   * Identifies groups that have the highest number of subgroups
+
+4. hospital_most_patients
+
+   * Shows which hospital serves the most patients
+
+5. subgroup_most_subscriptions
+
+   * Identifies subgroups with the highest subscriptions
+
+6. total_rejected_claims
+
+   * Shows total number of rejected claims
+
+7. city_most_claims
+
+   * Identifies cities from which most claims originate
+
+8. policy_type_most_subscribed
+
+   * Shows whether Government or Private policies are more popular
+
+9. avg_monthly_premium
+
+   * Calculates average premium paid by subscribers
+
+10. most_profitable_group
+
+* Identifies the most profitable insurance groups
+
+11. patients_below_18_cancer
+
+* Lists patients below 18 diagnosed with cancer
+
+---
+
+5. Key Relationships (Logical)
+
+---
+
+The following relationships exist between tables:
+
+* claims.patient_id → patients.patient_id
+* claims.sub_id → subscriber.sub_id
+* patients.hospital_id → hospital.hospital_id
+* subscriber.subgrp_id → group_subgroup.subgrp_id
+* group_subgroup.grp_id → groups.grp_id
+* disease.subgrp_id → group_subgroup.subgrp_id
+
+Note: Redshift does not enforce foreign keys strictly, but they are maintained logically.
+
+---
+
+6. Data Handling Notes
+
+---
+
+* Null values were handled during PySpark cleaning
+* Duplicate records were removed
+* Data was standardized for consistency
+
+Special Note:
+Some date fields in output tables (e.g., Use Case 2) are stored as VARCHAR because PySpark generated timestamps in ISO format with timezone, which Redshift does not directly parse during COPY.
+
+---
+
+7. Conclusion
+
+---
+
+This schema design supports:
+
+* efficient storage of cleaned data
+* easy querying of business insights
+* clear separation between raw data and analytical results
+
+The design follows a structured approach suitable for data warehousing and reporting.
