@@ -113,7 +113,21 @@ Databricks is used to:
 * Capture screenshots for presentation
 
 ---
+## Visualization
 
+Data visualizations were created using Databricks to analyze the processed results.
+
+The screenshots of these visualizations are available in the **Docs** folder of this repository.
+
+These include:
+
+* Subscriber distribution by gender
+* Subscriber distribution by city
+* City with maximum insurance claims
+
+These visualizations help in understanding customer distribution and claim patterns across different regions.
+
+---
 ## How to Run
 
 ### Run PySpark scripts
